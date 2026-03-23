@@ -17,7 +17,7 @@ jobs:
       run: |
         ORIGIN_HOST=${{ secrets.DATABRICKS_ORIGIN_HOST }}
         ORIGIN_TOKEN=${{ secrets.DATABRICKS_ORIGIN_TOKEN }}
-        NOTEBOOK_BASE="/Workspace/Users/alanrobg007_outlook.com#ext#@alanrobg007outlook.onmicrosoft.com/cicd_pryfinal_adb_arg2026/proceso"
+        NOTEBOOK_BASE="/Workspace/Users/alanrobg007_outlook.com%23ext%23%40alanrobg007outlook.onmicrosoft.com/cicd_pryfinal_adb_arg2026/proceso"
         NOTEBOOKS=("0_preparacion_ambiente" "1_ingesta_tables_bronze" "2_ingesta_tablas_silver" "3_Load")  # Agrega más según necesitesas
         mkdir -p notebooks_to_deploy
         for nb in "${NOTEBOOKS[@]}"; do
