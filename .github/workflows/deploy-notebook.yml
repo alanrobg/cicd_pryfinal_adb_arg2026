@@ -48,7 +48,7 @@ jobs:
             -H "Content-Type: multipart/form-data" \
             -F "path=$dest_path" \
             -F "format=SOURCE" \
-            -F "language=PYTHON SQL" \
+            -F "language=PYTHON" \
             -F "overwrite=true" \
             -F "content=@$file" \
             "$DEST_HOST/api/2.0/workspace/import")
@@ -192,10 +192,10 @@ jobs:
                 "notebook_path": "/py/scripts/main/3_Load",
                 "source": "WORKSPACE",
                 "base_parameters": {
-                  "schema_origen": "silver"
-                  "schema_destino": "gold"
-                  "schema_bronze": "bronze"
-                  "catalog": "catalog_pry_final"
+                  "schema_origen": "silver",
+                  "schema_destino": "gold",
+                  "schema_bronze": "bronze",
+                  "catalog": "catalog_pry_final",
                   "fecha_rutina": "$(date +%Y-%m-%d)"
                 }
               },
