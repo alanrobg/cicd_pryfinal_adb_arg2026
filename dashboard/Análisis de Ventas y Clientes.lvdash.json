@@ -1,0 +1,292 @@
+{
+  "datasets": [
+    {
+      "name": "b65e1b4a",
+      "displayName": "department_performance",
+      "queryLines": [
+        "select * from catalog_pry_final.golden.dm_department_performance"
+      ],
+      "catalog": "catalog_pry_final",
+      "schema": "golden"
+    },
+    {
+      "name": "ffbfbef8",
+      "displayName": "top_products",
+      "queryLines": [
+        "select * from catalog_pry_final.golden.dm_top_products"
+      ]
+    },
+    {
+      "name": "7b804451",
+      "displayName": "user_profiling",
+      "queryLines": [
+        "select * from catalog_pry_final.golden.user_profiling"
+      ],
+      "columns": [
+        {
+          "displayName": "Cantidad Ordenes",
+          "description": "Total ordenes cast to integer for aggregation",
+          "expression": "CAST(`total_ordenes` AS INT)"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "a79b91d3",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "98b3d8c7",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ffbfbef8",
+                  "fields": [
+                    {
+                      "name": "sum(total_vendido)",
+                      "expression": "SUM(`total_vendido`)"
+                    },
+                    {
+                      "name": "producto_nombre",
+                      "expression": "`producto_nombre`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top Productos Vendidos",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(total_vendido)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Vendido"
+                },
+                "color": {
+                  "fieldName": "producto_nombre",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "Producto",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "4351758b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b65e1b4a",
+                  "fields": [
+                    {
+                      "name": "departamento_nombre",
+                      "expression": "`departamento_nombre`"
+                    },
+                    {
+                      "name": "sum(total_productos_vendidos)",
+                      "expression": "SUM(`total_productos_vendidos`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Performance por Departamento",
+                "showTitle": true
+              },
+              "widgetType": "histogram",
+              "encodings": {
+                "x": {
+                  "fieldName": "departamento_nombre",
+                  "displayName": "Departamento",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_productos_vendidos)",
+                  "displayName": "Total Productos Vendidos",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "departamento_nombre",
+                  "displayName": "Departamento",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 8,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "promedio-dias-entre-ordenes-usuario",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7b804451",
+                  "fields": [
+                    {
+                      "name": "avg(prom_dias_entre_ordenes)",
+                      "expression": "AVG(`prom_dias_entre_ordenes`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Promedio de días entre Ordenes por Usuario"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(prom_dias_entre_ordenes)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "47a57a20",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7b804451",
+                  "fields": [
+                    {
+                      "name": "Cantidad Ordenes",
+                      "expression": "`Cantidad Ordenes`"
+                    },
+                    {
+                      "name": "count(Cantidad Ordenes)",
+                      "expression": "COUNT(`Cantidad Ordenes`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Cantidad de Ordenes por Usuario",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Cantidad Ordenes",
+                  "displayName": "Usuario",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(Cantidad Ordenes)",
+                  "displayName": "Cantidad Ordenes",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 8
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "ce37ae17",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "6f38f751",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
