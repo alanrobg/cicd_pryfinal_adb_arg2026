@@ -193,7 +193,7 @@ jobs:
                 "source": "WORKSPACE",
                 "base_parameters": {
                   "schema_origen": "silver",
-                  "schema_destino": "gold",
+                  "schema_destino": "golden",
                   "schema_bronze": "bronze",
                   "catalog": "catalog_pry_final",
                   "fecha_rutina": "$(date +%Y-%m-%d)"
