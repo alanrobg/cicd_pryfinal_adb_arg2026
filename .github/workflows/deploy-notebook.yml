@@ -207,7 +207,7 @@ jobs:
                   "task_key": "ingesta_tabla_silver"
                 }
               ]
-            },
+            }
           ],
           "schedule": {
             "quartz_cron_expression": "0 0 8 * * ?",
