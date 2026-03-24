@@ -18,7 +18,7 @@ jobs:
         ORIGIN_HOST=${{ secrets.DATABRICKS_ORIGIN_HOST }}
         ORIGIN_TOKEN=${{ secrets.DATABRICKS_ORIGIN_TOKEN }}
         NOTEBOOK_BASE="/Workspace/Users/alanrobg007_outlook.com%23ext%23%40alanrobg007outlook.onmicrosoft.com/cicd_pryfinal_adb_arg2026/proceso"
-        NOTEBOOKS=("0_preparacion_ambiente" "1_ingesta_tables_bronze" "2_ingesta_tablas_silver" "3_Load")  # Agrega más según necesitesas
+        NOTEBOOKS=("0_preparacion_ambiente" "1_ingesta_tables_bronze" "2_ingesta_tablas_silver" "3_Load" "4_seguridad")  # Agrega más según necesitesas
         mkdir -p notebooks_to_deploy
         for nb in "${NOTEBOOKS[@]}"; do
           echo "Exportando $nb en modo raw..."
@@ -205,6 +205,29 @@ jobs:
               "depends_on": [
                 {
                   "task_key": "ingesta_tabla_silver"
+                }
+              ]
+            },
+            {
+              "task_key": "seguridad",
+              "description": "Ejecuta grants a los catalogos, esquemas y tablas creadas segun rol",
+              "notebook_task": {
+                "notebook_path": "/py/scripts/main/4_seguridad",
+                "source": "WORKSPACE",
+                "base_parameters": {
+                  "schema_silver": "silver",
+                  "schema_golden": "golden",
+                  "schema_bronze": "bronze",
+                  "catalog": "catalog_pry_final",
+                  "fecha_rutina": "$(date +%Y-%m-%d)"
+                }
+              },
+              "existing_cluster_id": "$CLUSTER_ID",
+              "timeout_seconds": 3600,
+              "max_retries": 2,
+              "depends_on": [
+                {
+                  "task_key": "load_tablas"
                 }
               ]
             }
