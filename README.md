@@ -53,10 +53,25 @@ El ciclo de vida del desarrollo y la ejecución de este pipeline se gestiona a t
 
 ## ⚙️ Estructura del Repositorio
 
-├── data/                   # (Solo en local) Muestras de archivos CSV
-├── notebooks/              # Notebooks exploratorios
-├── src/                    # Scripts de código fuente (PySpark)
-│   ├── bronze_ingestion.py
-│   ├── silver_transform.py
-│   └── gold_aggregations.py
-└── README.md               # Documentación del proyecto
+    ├── .github/workflows/                   # archivos que orquesta el proceso (.yml)
+    ├── datasets/                            # archivos fuentes del ETL (.csv)
+    ├── dashboard/                           # Dashboard final desplegado en Databricks (.json)
+    ├── prepamb/                             # script para despliegue de Catalogos, esquemas y tablas.        
+    ├── proceso/                             # Código fuente del pipeline
+    │   ├── 0_preparacion_ambiente.ipynb     # script para despliegue de Catalogos, esquemas y tablas.    
+    │   ├── 1_ingesta_tables_bronze.ipynb    # Lógica de capa Bronze
+    │   ├── 2_ingesta_tablas_silver.ipynb    # Lógica de capa Silver
+    │   ├── 3_Load.ipynb                     # Lógica de capa Golden
+    │   └── 4_seguridad.ipynb                # script con los grants a la diferentes capas por rol
+    ├── reversion/
+    │   └── 1_reversion.ipynb                # script para borrar todo lo creado en el proceso
+    └── README.md                            # Documentación del proyecto
+
+---
+
+## 🚀 Cómo Ejecutar el Proyecto
+
+1. **Clonar el repositorio:**
+   ```
+   bash
+   git clone [https://github.com/tu-usuario/instacart-medallion-etl.git](https://github.com/tu-usuario/instacart-medallion-etl.git)
