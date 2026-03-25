@@ -74,4 +74,4 @@ El ciclo de vida del desarrollo y la ejecución de este pipeline se gestiona a t
 1. **Clonar el repositorio:**
    ```
    bash
-   git clone [https://github.com/tu-usuario/instacart-medallion-etl.git](https://github.com/tu-usuario/instacart-medallion-etl.git)
+   git clone [https://github.com/alanrobg/cicd_pryfinal_adb_arg2026.git](https://github.com/alanrobg/cicd_pryfinal_adb_arg2026.git)
